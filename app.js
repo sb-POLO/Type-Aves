@@ -1,4 +1,4 @@
-const RANDOM_QUOTE_API_URL = "http://api.quotable.io/random";
+const RANDOM_QUOTE_API_URL = "https://api.quotable.io/random";
 const container = document.getElementById("container");
 const quoteDisplayElement = document.getElementById("quoteDisplay");
 const timerElement = document.getElementById("timer");
@@ -15,6 +15,7 @@ var strokes;
 var glowID;
 var span;
 let spanId;
+var loaded = false;
 
 let cursorDiv = document.createElement("div");
 cursorDiv.setAttribute("id", "cursor");
@@ -59,66 +60,69 @@ function calcualtewpm() {
 
 window.addEventListener("keydown", (e) => {
     e.preventDefault();
-    if (!isTimerStated) {
-        startTimer();
-    }
-    if (isTimerStated) {
-        clearTimeout(glowID);
-        glow.classList.remove("hidden");
-        container.classList.add("shadow");
-        container.classList.add("container-glow");
-        glowTimer();
-        var charCode = e.keyCode;
-        if (
-            (charCode > 64 && charCode < 91) ||
-            (charCode > 96 && charCode < 123) ||
-            charCode === 32 ||
-            charCode === 188 ||
-            charCode === 186 ||
-            charCode === 222 ||
-            charCode === 190 ||
-            charCode === 191 ||
-            charCode === 49 ||
-            charCode === 189
-        ) {
-            if (quote[currentIndex] == e.key) {
-                quoteDisplayElement.childNodes[currentIndex].classList.add("correct");
+    if (loaded) {
+        
+        if (!isTimerStated) {
+            startTimer();
+        }
+        if (isTimerStated) {
+            clearTimeout(glowID);
+            glow.classList.remove("hidden");
+            container.classList.add("shadow");
+            container.classList.add("container-glow");
+            glowTimer();
+            var charCode = e.keyCode;
+            if (
+                (charCode > 64 && charCode < 91) ||
+                (charCode > 96 && charCode < 123) ||
+                charCode === 32 ||
+                charCode === 188 ||
+                charCode === 186 ||
+                charCode === 222 ||
+                charCode === 190 ||
+                charCode === 191 ||
+                charCode === 49 ||
+                charCode === 189
+            ) {
+                if (quote[currentIndex] == e.key) {
+                    quoteDisplayElement.childNodes[currentIndex].classList.add("correct");
+                    quoteDisplayElement.childNodes[currentIndex].classList.remove(
+                        "incorrect"
+                    );
+                    strokes[currentIndex] = 1;
+                } else {
+                    quoteDisplayElement.childNodes[currentIndex].classList.add("incorrect");
+                    quoteDisplayElement.childNodes[currentIndex].classList.remove(
+                        "correct"
+                    );
+                    strokes[currentIndex] = 0;
+                }
+                calcualtewpm();
+                if (span)
+                    span.removeChild(cursorDiv);
+                currentIndex++;
+                spanId = "span" + currentIndex;
+                span = document.getElementById(spanId);
+                if (currentIndex !== quote.length)
+                    span.appendChild(cursorDiv);
+                if (currentIndex === quote.length) {
+                    currentIndex = 0;
+                    renderNewQuote(true);
+                }
+            } else if (charCode === 8) {
+                if (currentIndex === 0) return;
+                span.removeChild(cursorDiv);
+                currentIndex--;
+                spanId = "span" + currentIndex;
+                span = document.getElementById(spanId);
+                span.appendChild(cursorDiv);
+                quoteDisplayElement.childNodes[currentIndex].classList.remove("correct");
                 quoteDisplayElement.childNodes[currentIndex].classList.remove(
                     "incorrect"
                 );
-                strokes[currentIndex] = 1;
             } else {
-                quoteDisplayElement.childNodes[currentIndex].classList.add("incorrect");
-                quoteDisplayElement.childNodes[currentIndex].classList.remove(
-                    "correct"
-                );
-                strokes[currentIndex] = 0;
+                console.log("not a key");
             }
-            calcualtewpm();
-            if (span)
-                span.removeChild(cursorDiv);
-            currentIndex++;
-            spanId = "span" + currentIndex;
-            span = document.getElementById(spanId);
-            if (currentIndex !== quote.length)
-                span.appendChild(cursorDiv);
-            if (currentIndex === quote.length) {
-                currentIndex = 0;
-                renderNewQuote(true);
-            }
-        } else if (charCode === 8) {
-            if (currentIndex === 0) return;
-            span.removeChild(cursorDiv);
-            currentIndex--;
-            spanId = "span" + currentIndex;
-            span = document.getElementById(spanId);
-            span.appendChild(cursorDiv);
-            quoteDisplayElement.childNodes[currentIndex].classList.remove("correct");
-            quoteDisplayElement.childNodes[currentIndex].classList.remove(
-                "incorrect"
-            );
-        } else {
-            console.log("not a key");
         }
     }
 });
@@ -138,6 +142,7 @@ function correctStrokes() {
 }
 
 const renderNewQuote = async (flag) => {
+    loaded = false;
     stopTimer();
     if (!isTimerStated)
         timerElement.classList.add("hidden");
@@ -146,7 +151,7 @@ const renderNewQuote = async (flag) => {
     loading.classList.remove("hidden");
     let id = 0;
     quote = "";
-    while (quote.length < 100) {
+    while (quote.length < 500) {
         quote = quote + await getRandomQuote() + " ";
         quote = quote.toLowerCase();
         quote = quote.replaceAll(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, "");
@@ -176,6 +181,7 @@ const renderNewQuote = async (flag) => {
     span = document.getElementById(spanId);
     if (flag)
         span.appendChild(cursorDiv);
+    loaded = true;
 };
 
 let startTime;

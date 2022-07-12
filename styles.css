@@ -1,0 +1,194 @@
+:root {
+    --dark: #323437;
+    --light: #e2b514da;
+    --text-color: #d1d0c5;
+    --text-fade: #61605c;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: transparent;
+    font-size: 36px;
+    overflow: visible;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    background-color: var(--dark);
+    font-family: monospace;
+}
+
+.app-container{
+    position: relative;
+    padding: 1rem;
+    height: 100vh;
+    width: 95vw;
+    overflow: hidden;
+}
+
+.button-logo {
+    background-color: var(--light);
+    border: 0.07rem solid black;
+    width: 1.6rem;
+    height: 1rem;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.button-logo:hover {
+    background-color: var(--text-color);
+    cursor: pointer;
+}
+
+.nav-container {
+    width: 90vw;
+    height: 25vh;
+    position: relative;
+}
+
+
+#logo-image {
+    z-index: -1;
+    width: 12rem;
+    position: absolute;
+    top: -6rem;
+    left: 7rem;
+}
+
+.main-container {
+    height: 60vh;
+    width: 90vw;
+}
+
+.button-container {
+    width: 25vw;
+    position: absolute;
+    top: -0.5rem;
+    left: 30rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#light {
+    width: 40rem;
+    position: absolute;
+    top: -10rem;
+    opacity: 0.7;
+}
+
+#glow {
+    width: 15rem;
+    position: absolute;
+    top: -2rem;
+    left: 5.8rem;
+    opacity: 0.7;
+}
+
+.main-container {
+    position: relative;
+}
+
+.type-container {
+    position: absolute;
+    top: 6.5rem;
+    left: 8rem;
+}
+
+.container {
+    position: relative;
+    padding: 1rem;
+    width: 40rem;
+    max-width: 90%;
+    color: var(--text-fade);
+}
+
+.loading{
+    z-index: 1;
+    position: absolute;
+    top: 4rem;
+    left: 15rem;
+    font-size: 0.5rem;
+}
+
+.wpm {
+    color: var(--light);
+    font-weight: bold;
+    position: absolute;
+    top: 0rem;
+    left: 9.6rem;
+}
+
+#wpm-label {
+    color: var(--light);
+    font-weight: bold;
+    position: absolute;
+    top: 0rem;
+    left: 7rem;
+
+}
+
+.timer {
+    color: var(--light);
+    font-weight: bold;
+    position: absolute;
+    top: 6rem;
+    left: 24rem;
+}
+
+.quote-display {
+    line-height: 1rem;
+}
+
+.container-focus {
+    color: var(--text-fade);
+}
+
+.container-glow {
+    text-shadow: 0px 0.1px var(--light);
+}
+
+.correct {
+    color: var(--text-color);
+}
+
+.incorrect {
+    color: red;
+}
+
+.footer-container {
+    text-align: center;
+    color: var(--light);
+    font-size: 0.4rem;
+    position: relative;
+    width: 20rem;
+    left: 30%;
+    margin-top: 2rem;
+}
+
+#cursor{
+    display: inline-blockasdf;
+    width: 0.07rem;
+    height: 0.8rem;
+    position: absolute;
+    top: -0.01rem;
+    left: -0.07rem;
+    background-color: var(--light);
+}
+
+.shadow{
+    /* -webkit-box-shadow: 7px 9px 16px 8px rgba(228, 240, 240, 1);
+    -moz-box-shadow: 7px 9px 16px 8px rgba(228, 240, 240, 1);
+    box-shadow: 7px 9px 16px 8px rgba(228, 240, 240, 1); */
+}

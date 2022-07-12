@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Type Aves</title>
+    <link rel="icon" href="./assets/top-logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script defer src="./app.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <div class="nav-container">
+            <img id="logo-image" src="./assets/logo.png" />
+            <div class="button-container">
+                <button class="button-logo" type="button"><img src="./assets/user.png" /></button>
+                <button class="button-logo" type="button"><img src="./assets/keyboard.png" /></button>
+                <button class="button-logo" type="button"><img src="./assets/about.png" /></button>
+                <button class="button-logo" type="button"><img src="./assets/leaderborads.png" /></button>
+                <button class="button-logo" type="button"><img src="./assets/icons8-delivery-time-30.png" /></button>
+            </div>
+        </div>
+        <div class="main-container">
+            <img id="light" src="./assets/light.png" />
+            <img id="glow" class="hidden" src="./assets/glow.png" />
+            <div class="timer" id="timer">30</div>
+            <label id="wpm-label" for="wpm">WPM:</label>
+            <div class="wpm" id="wpm">0</div>
+            <div class="type-container">
+                <div class="container" id="container">
+                    <!-- <div id="cursor"></div> -->
+                    <div class="loading" id="loading">Loading...</div>
+                    <div class="quote-display" id="quoteDisplay"></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-container" id="footer-container">
+            Click on the text to start
+        </div>
+    </div>
+</body>
+
+</html>

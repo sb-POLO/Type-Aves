@@ -35,21 +35,9 @@ body {
     overflow: hidden;
 }
 
-.button-logo {
-    background-color: var(--light);
-    border: 0.07rem solid black;
-    width: 1.6rem;
-    height: 1rem;
-    border-radius: 0.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-}
-
 .button-logo:hover {
-    background-color: var(--text-color);
     cursor: pointer;
+    opacity: 1;
 }
 
 .nav-container {
@@ -72,7 +60,7 @@ body {
     width: 90vw;
 }
 
-.select-time{
+.select-time {
     position: absolute;
     text-align: center;
     top: 25%;
@@ -80,14 +68,16 @@ body {
     line-height: 0.7rem;
 }
 
-.select-time, .select-time div, .select-time span{
+.select-time,
+.select-time div,
+.select-time span {
     color: var(--text-fade);
     font-size: 0.45rem;
     font-weight: bolder;
     cursor: pointer;
 }
 
-.select-time div{
+.select-time div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -96,20 +86,20 @@ body {
     cursor: default;
 }
 
-#clock{
+#clock {
     width: 0.5rem;
     margin-right: 0.1rem;
 }
 
-.select-time div:hover{
+.select-time div:hover {
     opacity: 1;
 }
 
-.time-wrapper:hover{
+.time-wrapper:hover {
     color: var(--text-color);
 }
 
-.time-wrapper.default-time{
+.time-wrapper.default-time {
     color: var(--light);
 }
 
@@ -124,7 +114,17 @@ body {
     left: 30rem;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
+}
+
+.button-logo {
+    width: 0.6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    opacity: 0.3;
+    margin-left: -5rem;
 }
 
 #light {
@@ -168,7 +168,7 @@ body {
     z-index: 1;
     position: absolute;
     top: 4rem;
-    left: 15rem;
+    left: 15.8rem;
     font-size: 0.5rem;
 }
 
@@ -231,7 +231,7 @@ body {
     left: 32%;
 }
 
-#arrow{
+#arrow {
     margin-right: 0.2rem;
 }
 
@@ -243,4 +243,45 @@ body {
     top: -0.01rem;
     left: -0.07rem;
     background-color: var(--light);
+}
+
+#reset-holder {
+    position: relative;
+    height: 2rem;
+}
+
+#reset-logo {
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    width: 0.7rem;
+    opacity: 0.4;
+}
+
+#reset-logo:hover {
+    opacity: 1;
+}
+
+#reset-popup {
+    color: var(--text-color);
+    background-color: black;
+    position: absolute;
+    font-size: 0.4rem;
+    padding: 0.25rem 0.4rem;
+    left: 47%;
+    top: 64%;
+    border-radius: 5px;
+    z-index: 1;
+}
+
+#reset-arrow {
+    content: "";
+    color: black;
+    position: absolute;
+    width: 0.3rem;
+    top: 50%;
+    left: 50.3%;
+    border-color: transparent transparent black transparent;
+    border-width: 5px;
+    border-style: solid;
 }

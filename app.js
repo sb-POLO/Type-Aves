@@ -7,6 +7,7 @@ const glow = document.getElementById("glow");
 const rule = document.getElementById("footer-container");
 let loading = document.getElementById("loading");
 let timeWrapper = document.querySelectorAll(".time-wrapper");
+let reset = document.getElementById("reset-logo");
 
 var timerID;
 var isTimerStated = false;
@@ -24,6 +25,8 @@ let clickedTime = false;
 let cursorDiv = document.createElement("div");
 cursorDiv.setAttribute("id", "cursor");
 rule.classList.add("hidden");
+document.getElementById("reset-popup").classList.add("hidden");
+document.getElementById("reset-arrow").classList.add("hidden");
 
 (function () {
     timeWrapper.forEach((elem) => {
@@ -41,6 +44,16 @@ rule.classList.add("hidden");
     });
 })();
 
+reset.addEventListener("mouseenter", () => {
+    document.getElementById("reset-popup").classList.remove("hidden");
+    document.getElementById("reset-arrow").classList.remove("hidden");
+});
+
+reset.addEventListener("mouseleave", () => {
+    document.getElementById("reset-popup").classList.add("hidden");
+    document.getElementById("reset-arrow").classList.add("hidden");
+});
+
 window.addEventListener("click", (e) => {
     if (document.getElementById("container").contains(e.target)) {
         focusContainer = true;
@@ -56,7 +69,6 @@ window.addEventListener("click", (e) => {
         // }
     } else {
         if (!clickedTime) {
-            clickedTime = false;
             focusContainer = false;
             if (span)
                 span.removeChild(cursorDiv);
@@ -73,6 +85,7 @@ window.addEventListener("click", (e) => {
             //     node.classList.remove("incorrect");
             // });
         }
+        clickedTime = false;
     }
 });
 
@@ -86,7 +99,9 @@ function calcualtewpm() {
 }
 
 window.addEventListener("keydown", (e) => {
-    e.preventDefault();
+    console.log(e.keyCode);
+    if(e.keyCode != 122)
+        e.preventDefault();
     if (!focusContainer) {
         load();
         return;
@@ -181,7 +196,7 @@ const renderNewQuote = async (flag) => {
     loading.classList.remove("hidden");
     let id = 0;
     quote = "";
-    while (quote.length < 600) {
+    while (quote.length < 500) {
         quote = quote + await getRandomQuote() + " ";
         quote = quote.toLowerCase();
         quote = quote.replaceAll(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, "");

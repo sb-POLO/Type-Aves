@@ -27,15 +27,19 @@
             <img id="light" src="./assets/light.png" />
             <img id="glow" class="hidden" src="./assets/glow.png" />
             <div class="select-time">
-                <div><img id="clock" src="./assets/clock.png" />Time</div>
+                <div><img id="clock" src="./assets/clock.png" />time</div>
                 <span class="time-wrapper">10</span>
                 <span class="time-wrapper default-time">30</span>
                 <span class="time-wrapper">60</span>
                 <span class="time-wrapper">120</span>
             </div>
             <div class="timer" id="timer">30</div>
-            <label id="wpm-label" for="wpm">WPM:</label>
-            <div class="wpm" id="wpm">0</div>
+            <div id="result">
+                <p id="acc-label">acc</p>
+                <div class="acc" id="acc">0%</div>
+                <p id="wpm-label">wpm</p>
+                <div class="wpm" id="wpm">0</div>
+            </div>
             <div class="type-container">
                 <div class="container" id="container">
                     <!-- <div id="cursor"></div> -->
@@ -53,7 +57,7 @@
             <div id="reset-popup">Restart Test</div>
             <div id="reset-arrow"></div>
         </div>
-        
+
     </div>
 </body>
 

@@ -123,7 +123,7 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 1;
-    opacity: 0.3;
+    opacity: 0.4;
     margin-left: -5rem;
 }
 
@@ -172,21 +172,50 @@ body {
     font-size: 0.5rem;
 }
 
+#result {
+    z-index: 1;
+    background-color: var(--dark);
+    position: relative;
+    top: 8rem;
+    left: 21rem;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.7rem;
+    -webkit-box-shadow: 7px 9px 5px -5px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 7px 9px 5px -5px rgba(0, 0, 0, 0.6);
+    box-shadow: 7px 9px 5px -5px rgba(0, 0, 0, 0.6);
+    width: 8rem;
+    height: 7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: center;
+    transition: transform 1s ease;
+    transform: scale(0.1);
+}
+
+#result.transform {
+    transform: scale(1);
+}
+
 .wpm {
     color: var(--light);
     font-weight: bold;
-    position: absolute;
-    top: 0rem;
-    left: 9.6rem;
 }
 
 #wpm-label {
+    color: var(--text-fade);
+    font-weight: bold;
+}
+
+.acc {
     color: var(--light);
     font-weight: bold;
-    position: absolute;
-    top: 0rem;
-    left: 7rem;
+}
 
+#acc-label {
+    color: var(--text-fade);
+    font-weight: bold;
 }
 
 .timer {
@@ -194,7 +223,7 @@ body {
     font-weight: bold;
     position: absolute;
     top: 6rem;
-    left: 24rem;
+    left: 24.6rem;
 }
 
 .quote-display {

@@ -8,6 +8,7 @@ const rule = document.getElementById("footer-container");
 let loading = document.getElementById("loading");
 let timeWrapper = document.querySelectorAll(".time-wrapper");
 let reset = document.getElementById("reset-logo");
+let result = document.getElementById("result");
 
 var timerID;
 var isTimerStated = false;
@@ -21,25 +22,29 @@ var loaded = false;
 let focusContainer = false;
 let time = 30;
 let clickedTime = false;
+let displayPopup = false;
 
 let cursorDiv = document.createElement("div");
 cursorDiv.setAttribute("id", "cursor");
 rule.classList.add("hidden");
 document.getElementById("reset-popup").classList.add("hidden");
 document.getElementById("reset-arrow").classList.add("hidden");
+result.classList.add("hidden");
 
 (function () {
     timeWrapper.forEach((elem) => {
         elem.addEventListener("click", () => {
-            stopTimer();
-            // console.log(document.getElementsByClassName("time-wrapper"));
-            // console.log(document.getElementById("timer"));
-            document.getElementsByClassName("default-time")[0].classList.remove("default-time");
-            elem.classList.add("default-time");
-            time = parseInt(elem.innerText);
-            clickedTime = true;
-            renderNewQuote(false);
-
+            if (!displayPopup) {
+                stopTimer();
+                // console.log(document.getElementsByClassName("time-wrapper"));
+                // console.log(document.getElementById("timer"));
+                document.getElementsByClassName("default-time")[0].classList.remove("default-time");
+                elem.classList.add("default-time");
+                time = parseInt(elem.innerText);
+                clickedTime = true;
+                currentIndex = 0;
+                renderNewQuote(true);
+            }
         })
     });
 })();
@@ -54,36 +59,50 @@ reset.addEventListener("mouseleave", () => {
     document.getElementById("reset-arrow").classList.add("hidden");
 });
 
+reset.addEventListener("click", () => {
+    displayPopup = false;
+    result.classList.remove("transform");
+    container.classList.remove("blur");
+    result.classList.add("hidden");
+    clickedTime = true;
+    currentIndex = 0;
+    renderNewQuote(true);
+})
+
 window.addEventListener("click", (e) => {
     if (document.getElementById("container").contains(e.target)) {
-        focusContainer = true;
-        rule.classList.add("hidden");
-        // if (!isTimerStated) {
-        container.classList.add("container-focus");
-        container.classList.remove("blur");
-        spanId = "span" + currentIndex;
-        span = document.getElementById(spanId);
-        span.appendChild(cursorDiv);
-        // console.log(span);
-        // startTimer();
-        // }
+        if (!displayPopup) {
+            focusContainer = true;
+            rule.classList.add("hidden");
+            // if (!isTimerStated) {
+            container.classList.add("container-focus");
+            container.classList.remove("blur");
+            spanId = "span" + currentIndex;
+            span = document.getElementById(spanId);
+            span.appendChild(cursorDiv);
+            // console.log(span);
+            // startTimer();
+            // }
+        }
     } else {
-        if (!clickedTime) {
-            focusContainer = false;
-            if (span)
-                span.removeChild(cursorDiv);
-            container.classList.remove("container-focus");
-            rule.classList.remove("hidden");
-            glow.classList.add("hidden");
-            container.classList.remove("container-glow");
-            container.classList.add("blur");
-            // timerElement.innerText = 0;
-            // stopTimer();
-            // currentIndex = 0;
-            // quoteDisplayElement.childNodes.forEach((node) => {
-            //     node.classList.remove("correct");
-            //     node.classList.remove("incorrect");
-            // });
+        if (!displayPopup) {
+            if (!clickedTime) {
+                focusContainer = false;
+                if (span)
+                    span.removeChild(cursorDiv);
+                container.classList.remove("container-focus");
+                rule.classList.remove("hidden");
+                glow.classList.add("hidden");
+                container.classList.remove("container-glow");
+                container.classList.add("blur");
+                // timerElement.innerText = 0;
+                // stopTimer();
+                // currentIndex = 0;
+                // quoteDisplayElement.childNodes.forEach((node) => {
+                //     node.classList.remove("correct");
+                //     node.classList.remove("incorrect");
+                // });
+            }
         }
         clickedTime = false;
     }
@@ -99,9 +118,10 @@ function calcualtewpm() {
 }
 
 window.addEventListener("keydown", (e) => {
-    console.log(e.keyCode);
-    if(e.keyCode != 122)
-        e.preventDefault();
+    // console.log(e.keyCode);
+    if (e.keyCode == 122)
+        return;
+    // e.preventDefault();
     if (!focusContainer) {
         load();
         return;
@@ -152,7 +172,7 @@ window.addEventListener("keydown", (e) => {
                     span.appendChild(cursorDiv);
                 if (currentIndex === quote.length) {
                     currentIndex = 0;
-                    renderNewQuote(true);
+                    popup();
                 }
             } else if (charCode === 8) {
                 if (currentIndex === 0) return;
@@ -241,7 +261,7 @@ function startTimer() {
         if (timerElement.innerText == 0) {
             stopTimer();
             currentIndex = 0;
-            renderNewQuote(true);
+            popup();
         }
     }, 1000);
 }
@@ -266,4 +286,19 @@ renderNewQuote(false);
 
 let load = function () {
     container.click();
+}
+
+let popup = function () {
+    focusContainer = false;
+    if (span)
+        span.removeChild(cursorDiv);
+    timerElement.classList.add("hidden");
+    container.classList.remove("container-focus");
+    glow.classList.add("hidden");
+    container.classList.remove("container-glow");
+    container.classList.add("blur");
+    result.classList.remove("hidden");
+    // result.style.transform = "scale(1)";
+    result.classList.add("transform");
+    displayPopup = true;
 }

@@ -12,6 +12,7 @@
     background-color: transparent;
     font-size: 36px;
     overflow: visible;
+    user-select: none;
 }
 
 .hidden {
@@ -26,7 +27,7 @@ body {
     font-family: monospace;
 }
 
-.app-container{
+.app-container {
     position: relative;
     padding: 1rem;
     height: 100vh;
@@ -69,6 +70,51 @@ body {
 .main-container {
     height: 60vh;
     width: 90vw;
+}
+
+.select-time{
+    position: absolute;
+    text-align: center;
+    top: 25%;
+    left: 48.6%;
+    line-height: 0.7rem;
+}
+
+.select-time, .select-time div, .select-time span{
+    color: var(--text-fade);
+    font-size: 0.45rem;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+.select-time div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.4;
+    color: var(--text-color);
+    cursor: default;
+}
+
+#clock{
+    width: 0.5rem;
+    margin-right: 0.1rem;
+}
+
+.select-time div:hover{
+    opacity: 1;
+}
+
+.time-wrapper:hover{
+    color: var(--text-color);
+}
+
+.time-wrapper.default-time{
+    color: var(--light);
+}
+
+.time-wrapper.default-time:hover {
+    color: var(--text-color);
 }
 
 .button-container {
@@ -114,7 +160,11 @@ body {
     color: var(--text-fade);
 }
 
-.loading{
+.blur {
+    filter: blur(0.2rem);
+}
+
+.loading {
     z-index: 1;
     position: absolute;
     top: 4rem;
@@ -168,27 +218,29 @@ body {
 }
 
 .footer-container {
+    z-index: -1;
     text-align: center;
-    color: var(--light);
-    font-size: 0.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    font-size: 0.45rem;
     position: relative;
     width: 20rem;
-    left: 30%;
-    margin-top: 2rem;
+    top: -4.6rem;
+    left: 32%;
 }
 
-#cursor{
-    display: inline-blockasdf;
+#arrow{
+    margin-right: 0.2rem;
+}
+
+#cursor {
+    display: inline-block;
     width: 0.07rem;
     height: 0.8rem;
     position: absolute;
     top: -0.01rem;
     left: -0.07rem;
     background-color: var(--light);
-}
-
-.shadow{
-    /* -webkit-box-shadow: 7px 9px 16px 8px rgba(228, 240, 240, 1);
-    -moz-box-shadow: 7px 9px 16px 8px rgba(228, 240, 240, 1);
-    box-shadow: 7px 9px 16px 8px rgba(228, 240, 240, 1); */
 }

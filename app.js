@@ -6,6 +6,7 @@ const wpmElement = document.getElementById("wpm");
 const glow = document.getElementById("glow");
 const rule = document.getElementById("footer-container");
 let loading = document.getElementById("loading");
+let timeWrapper = document.querySelectorAll(".time-wrapper");
 
 var timerID;
 var isTimerStated = false;
@@ -16,16 +17,37 @@ var glowID;
 var span;
 let spanId;
 var loaded = false;
+let focusContainer = false;
+let time = 30;
+let clickedTime = false;
 
 let cursorDiv = document.createElement("div");
 cursorDiv.setAttribute("id", "cursor");
-// rule.classList.add("hidden");
+rule.classList.add("hidden");
+
+(function () {
+    timeWrapper.forEach((elem) => {
+        elem.addEventListener("click", () => {
+            stopTimer();
+            // console.log(document.getElementsByClassName("time-wrapper"));
+            // console.log(document.getElementById("timer"));
+            document.getElementsByClassName("default-time")[0].classList.remove("default-time");
+            elem.classList.add("default-time");
+            time = parseInt(elem.innerText);
+            clickedTime = true;
+            renderNewQuote(false);
+
+        })
+    });
+})();
 
 window.addEventListener("click", (e) => {
     if (document.getElementById("container").contains(e.target)) {
+        focusContainer = true;
         rule.classList.add("hidden");
         // if (!isTimerStated) {
         container.classList.add("container-focus");
+        container.classList.remove("blur");
         spanId = "span" + currentIndex;
         span = document.getElementById(spanId);
         span.appendChild(cursorDiv);
@@ -33,19 +55,24 @@ window.addEventListener("click", (e) => {
         // startTimer();
         // }
     } else {
-        if (span)
-            span.removeChild(cursorDiv);
-        container.classList.remove("container-focus");
-        rule.classList.remove("hidden");
-        glow.classList.add("hidden");
-        container.classList.remove("container-glow");
-        // timerElement.innerText = 0;
-        // stopTimer();
-        // currentIndex = 0;
-        // quoteDisplayElement.childNodes.forEach((node) => {
-        //     node.classList.remove("correct");
-        //     node.classList.remove("incorrect");
-        // });
+        if (!clickedTime) {
+            clickedTime = false;
+            focusContainer = false;
+            if (span)
+                span.removeChild(cursorDiv);
+            container.classList.remove("container-focus");
+            rule.classList.remove("hidden");
+            glow.classList.add("hidden");
+            container.classList.remove("container-glow");
+            container.classList.add("blur");
+            // timerElement.innerText = 0;
+            // stopTimer();
+            // currentIndex = 0;
+            // quoteDisplayElement.childNodes.forEach((node) => {
+            //     node.classList.remove("correct");
+            //     node.classList.remove("incorrect");
+            // });
+        }
     }
 });
 
@@ -60,15 +87,18 @@ function calcualtewpm() {
 
 window.addEventListener("keydown", (e) => {
     e.preventDefault();
+    if (!focusContainer) {
+        load();
+        return;
+    }
     if (loaded) {
-        
+
         if (!isTimerStated) {
             startTimer();
         }
         if (isTimerStated) {
             clearTimeout(glowID);
             glow.classList.remove("hidden");
-            container.classList.add("shadow");
             container.classList.add("container-glow");
             glowTimer();
             var charCode = e.keyCode;
@@ -151,7 +181,7 @@ const renderNewQuote = async (flag) => {
     loading.classList.remove("hidden");
     let id = 0;
     quote = "";
-    while (quote.length < 500) {
+    while (quote.length < 600) {
         quote = quote + await getRandomQuote() + " ";
         quote = quote.toLowerCase();
         quote = quote.replaceAll(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, "");
@@ -182,16 +212,17 @@ const renderNewQuote = async (flag) => {
     if (flag)
         span.appendChild(cursorDiv);
     loaded = true;
+    load();
 };
 
 let startTime;
 function startTimer() {
     isTimerStated = true;
     timerElement.classList.remove("hidden");
-    timerElement.innerText = 10;
+    timerElement.innerText = time;
     startTime = new Date();
     timerID = setInterval(() => {
-        timerElement.innerText = 10 - parseInt(getTimerTime());
+        timerElement.innerText = time - parseInt(getTimerTime());
         if (timerElement.innerText == 0) {
             stopTimer();
             currentIndex = 0;
@@ -217,3 +248,7 @@ function glowTimer() {
 }
 
 renderNewQuote(false);
+
+let load = function () {
+    container.click();
+}

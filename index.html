@@ -26,6 +26,13 @@
         <div class="main-container">
             <img id="light" src="./assets/light.png" />
             <img id="glow" class="hidden" src="./assets/glow.png" />
+            <div class="select-time">
+                <div><img id="clock" src="./assets/clock.png" />Time</div>
+                <span class="time-wrapper">10</span>
+                <span class="time-wrapper default-time">30</span>
+                <span class="time-wrapper">60</span>
+                <span class="time-wrapper">120</span>
+            </div>
             <div class="timer" id="timer">30</div>
             <label id="wpm-label" for="wpm">WPM:</label>
             <div class="wpm" id="wpm">0</div>
@@ -38,7 +45,8 @@
             </div>
         </div>
         <div class="footer-container" id="footer-container">
-            Click on the text to start
+            <img id="arrow" src="./assets/cursor.png" />
+            Click or press any key to focus
         </div>
     </div>
 </body>

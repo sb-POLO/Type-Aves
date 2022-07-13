@@ -9,6 +9,7 @@ let loading = document.getElementById("loading");
 let timeWrapper = document.querySelectorAll(".time-wrapper");
 let reset = document.getElementById("reset-logo");
 let result = document.getElementById("result");
+let logoImage = document.getElementById("logo-image");
 
 var timerID;
 var isTimerStated = false;
@@ -30,6 +31,12 @@ rule.classList.add("hidden");
 document.getElementById("reset-popup").classList.add("hidden");
 document.getElementById("reset-arrow").classList.add("hidden");
 result.classList.add("hidden");
+
+
+logoImage.addEventListener("click", () => {
+    clickedTime = true;
+    location.reload(true);
+});
 
 (function () {
     timeWrapper.forEach((elem) => {
@@ -109,12 +116,17 @@ window.addEventListener("click", (e) => {
 });
 
 function calcualtewpm() {
-    if (getTimerTime() > 0) {
-        wpmElement.innerText = Math.round(
-            parseFloat(correctStrokes()) / 5.0 / (parseFloat(getTimerTime()) / 60.0)
-        );
-    }
+    wpmElement.innerText = Math.round(
+        parseFloat(correctStrokes()) / 5.0 / (parseFloat(time) / 60.0)
+    );
     // console.log("wpm", correctStrokes(), getTimerTime());
+}
+
+function calculateacc() {
+    // console.log(currentIndex, correctStrokes());
+    document.getElementById("acc").innerText = Math.round(
+        parseFloat((correctStrokes() / currentIndex) * 100.0)
+    ) + "%";
 }
 
 window.addEventListener("keydown", (e) => {
@@ -162,7 +174,6 @@ window.addEventListener("keydown", (e) => {
                     );
                     strokes[currentIndex] = 0;
                 }
-                calcualtewpm();
                 if (span)
                     span.removeChild(cursorDiv);
                 currentIndex++;
@@ -171,6 +182,8 @@ window.addEventListener("keydown", (e) => {
                 if (currentIndex !== quote.length)
                     span.appendChild(cursorDiv);
                 if (currentIndex === quote.length) {
+                    calcualtewpm();
+                    calculateacc();
                     currentIndex = 0;
                     popup();
                 }
@@ -260,6 +273,8 @@ function startTimer() {
         timerElement.innerText = time - parseInt(getTimerTime());
         if (timerElement.innerText == 0) {
             stopTimer();
+            calcualtewpm();
+            calculateacc();
             currentIndex = 0;
             popup();
         }

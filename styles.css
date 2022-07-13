@@ -48,11 +48,15 @@ body {
 
 
 #logo-image {
-    z-index: -1;
+    z-index: 1;
     width: 12rem;
     position: absolute;
     top: -6rem;
     left: 7rem;
+}
+
+#logo-image:hover {
+    cursor: pointer;
 }
 
 .main-container {

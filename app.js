@@ -70,6 +70,7 @@ reset.addEventListener("mouseleave", () => {
 reset.addEventListener("click", () => {
     document.getElementById("reset-popup").classList.add("hidden");
     document.getElementById("reset-arrow").classList.add("hidden");
+    rule.classList.add("hidden");
     resetFocus = false;
     document.activeElement.blur();
     displayPopup = false;

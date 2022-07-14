@@ -67,8 +67,8 @@ body {
 .select-time {
     position: absolute;
     text-align: center;
-    top: 25%;
-    left: 48.6%;
+    top: 4%;
+    left: 68.8%;
     line-height: 0.7rem;
 }
 
@@ -180,7 +180,7 @@ body {
     z-index: 1;
     background-color: var(--dark);
     position: relative;
-    top: 8rem;
+    top: 6rem;
     left: 21rem;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 0.7rem;
@@ -200,6 +200,27 @@ body {
 
 #result.transform {
     transform: scale(1);
+}
+
+.instructions {
+    position: relative;
+    top: -6%;
+    left: 22%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-fade);
+    font-size: 0.4rem;
+}
+
+.instructions div {
+    margin-right: 0.2rem;
+    margin-left: 0.2rem;
+    padding: 0.1rem;
+    background-color: var(--text-fade);
+    border-radius: 0.2rem;
+    font-size: 0.4rem;
+    color: var(--text-color);
 }
 
 .wpm {
@@ -227,7 +248,7 @@ body {
     font-weight: bold;
     position: absolute;
     top: 6rem;
-    left: 24.6rem;
+    left: 24.2rem;
 }
 
 .quote-display {
@@ -295,6 +316,10 @@ body {
     opacity: 1;
 }
 
+#reset-logo:focus {
+    opacity: 1;
+}
+
 #reset-popup {
     color: var(--text-color);
     background-color: black;
@@ -313,7 +338,7 @@ body {
     position: absolute;
     width: 0.3rem;
     top: 50%;
-    left: 50.3%;
+    left: 50.4%;
     border-color: transparent transparent black transparent;
     border-width: 5px;
     border-style: solid;

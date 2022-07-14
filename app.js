@@ -24,6 +24,7 @@ let focusContainer = false;
 let time = 30;
 let clickedTime = false;
 let displayPopup = false;
+let resetFocus = false;
 
 let cursorDiv = document.createElement("div");
 cursorDiv.setAttribute("id", "cursor");
@@ -67,6 +68,10 @@ reset.addEventListener("mouseleave", () => {
 });
 
 reset.addEventListener("click", () => {
+    document.getElementById("reset-popup").classList.add("hidden");
+    document.getElementById("reset-arrow").classList.add("hidden");
+    resetFocus = false;
+    document.activeElement.blur();
     displayPopup = false;
     result.classList.remove("transform");
     container.classList.remove("blur");
@@ -77,6 +82,9 @@ reset.addEventListener("click", () => {
 })
 
 window.addEventListener("click", (e) => {
+    document.getElementById("reset-popup").classList.add("hidden");
+    document.getElementById("reset-arrow").classList.add("hidden");
+    resetFocus = false;
     if (document.getElementById("container").contains(e.target)) {
         if (!displayPopup) {
             focusContainer = true;
@@ -130,10 +138,34 @@ function calculateacc() {
 }
 
 window.addEventListener("keydown", (e) => {
-    // console.log(e.keyCode);
+    console.log(e.keyCode);
+    if (e.keyCode == 13) {
+        document.activeElement.click();
+        return
+    }
+    if (e.keyCode == 9) {
+        e.preventDefault();
+        reset.focus();
+        document.getElementById("reset-popup").classList.remove("hidden");
+        document.getElementById("reset-arrow").classList.remove("hidden");
+        focusContainer = false;
+        resetFocus = true;
+        if (span)
+            span.removeChild(cursorDiv);
+        container.classList.remove("container-focus");
+        rule.classList.remove("hidden");
+        glow.classList.add("hidden");
+        container.classList.remove("container-glow");
+        container.classList.add("blur");
+        return;
+    }
     if (e.keyCode == 122)
         return;
-    // e.preventDefault();
+    e.preventDefault();
+    document.getElementById("reset-popup").classList.add("hidden");
+    document.getElementById("reset-arrow").classList.add("hidden");
+    resetFocus = false;
+    document.activeElement.blur();
     if (!focusContainer) {
         load();
         return;
@@ -304,9 +336,13 @@ let load = function () {
 }
 
 let popup = function () {
+    stopTimer();
     focusContainer = false;
-    if (span)
+    if (span && !resetFocus)
         span.removeChild(cursorDiv);
+    document.activeElement.blur();
+    document.getElementById("reset-popup").classList.add("hidden");
+    document.getElementById("reset-arrow").classList.add("hidden");
     timerElement.classList.add("hidden");
     container.classList.remove("container-focus");
     glow.classList.add("hidden");
